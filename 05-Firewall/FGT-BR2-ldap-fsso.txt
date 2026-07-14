@@ -1,0 +1,68 @@
+! ============================================================
+! FortiGate BR2 — LDAP & FSSO Configuration
+! ============================================================
+
+! LDAP Server
+config user ldap
+    edit "BR2_LDAP_SERVER"
+        set server "10.3.20.10"
+        set cnid "sAMAccountName"
+        set dn "dc=br2,dc=hq,dc=zeropoint,dc=local"
+        set type regular
+        set username "CN=svc-fgt-ldap,OU=BR2-Users,DC=br2,DC=hq,DC=zeropoint,DC=local"
+        set password ENC AK1...
+        set secure disable
+    next
+end
+
+! LDAP User Group
+config user group
+    edit "BR2_LDAP_Admins"
+        set member "BR2_LDAP_SERVER"
+        config match
+            edit 1
+                set group-name "CN=Domain Admins,OU=BR2-Groups,DC=br2,DC=hq,DC=zeropoint,DC=local"
+            next
+        end
+    next
+    edit "BR2_LDAP_Users"
+        set member "BR2_LDAP_SERVER"
+        config match
+            edit 1
+                set group-name "CN=BR2-Users,OU=BR2-Groups,DC=br2,DC=hq,DC=zeropoint,DC=local"
+            next
+        end
+    next
+end
+
+! FSSO Polling (Agentless)
+config user fsso
+    edit "BR2_FSSO_POLLING"
+        set server "10.3.20.10"
+        set type polling
+        set password ENC AK1...
+        set port 8002
+    next
+end
+
+! FSSO User Group
+config user group
+    edit "BR2_FSSO_Users"
+        set member "BR2_FSSO_POLLING"
+        config match
+            edit 1
+                set group-name "CN=Domain Users,CN=Users,DC=br2,DC=hq,DC=zeropoint,DC=local"
+            next
+        end
+    next
+end
+
+! Remote Administrator
+config system admin
+    edit "br2_admin_ldap"
+        set remote-auth enable
+        set accprofile "super_admin"
+        set vdom "root"
+        set remote-group "BR2_LDAP_Admins"
+    next
+end

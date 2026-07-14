@@ -1,0 +1,14 @@
+! ============================================================
+! FortiGate BR2 — High Availability Configuration
+! ============================================================
+
+config system ha
+    set mode a-p
+    set group-name "BR2-FGT-HA"
+    set password ENC AK1...
+    set priority 200
+    set override enable
+    set heartbeat-interface "port3"
+    set hbdev "port3" 50
+    set monitor "WAN_ORANGE" "WAN_WE" "BR2-LAN-SW"
+end

@@ -1,0 +1,39 @@
+! ============================================================
+! FortiGate BR2 — SD-WAN Configuration
+! ============================================================
+
+config system sdwan
+    set status enable
+    config zone
+        edit "virtual-wan-link"
+        next
+    end
+    config members
+        edit 1
+            set interface "WAN_ORANGE"
+            set zone "virtual-wan-link"
+            set gateway "dhcp"
+        next
+        edit 2
+            set interface "WAN_WE"
+            set zone "virtual-wan-link"
+            set gateway "dhcp"
+        next
+    end
+    config health-check
+        edit "INTERNET_CHECK"
+            set server "8.8.8.8"
+            set update-cascade-interface enable
+            set update-static-route enable
+        next
+    end
+end
+
+! Default route to SD-WAN
+config router static
+    edit 1
+        set dst 0.0.0.0 0.0.0.0
+        set sdwan-zone "virtual-wan-link"
+        set distance 5
+    next
+end

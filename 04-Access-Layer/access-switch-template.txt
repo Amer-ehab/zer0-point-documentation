@@ -1,0 +1,64 @@
+! ============================================================
+! Access Switch Template — Zer0-Po!nT Enterprise Network
+! Replace "XXX" with switch name and "X" with appropriate VLAN
+! ============================================================
+
+enable
+configure terminal
+
+! =========================
+! 1) Basic & Security Hardening
+! =========================
+hostname SW-HQ-ACC-XXX
+no ip domain-lookup
+service password-encryption
+
+! =========================
+! 2) VLAN Database
+! =========================
+vlan X
+ name xxxxx
+
+! =========================
+! 3) Uplink Trunk to Core
+! =========================
+interface Ethernet0/0
+ description UPLINK-to-CORE-01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan X
+ spanning-tree portfast trunk
+ no shutdown
+
+interface Ethernet0/1
+ description UPLINK-to-CORE-02
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan X
+ spanning-tree portfast trunk
+ no shutdown
+
+! =========================
+! 4) Access Ports (Endpoints)
+! =========================
+interface range Ethernet0/2 - 0/23
+ description END-DEVICES
+ switchport mode access
+ switchport access vlan X
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+! =========================
+! 5) Storm Control
+! =========================
+interface range Ethernet0/2 - 0/23
+ storm-control broadcast level 5.00
+ storm-control multicast level 5.00
+ storm-control action shutdown
+
+! =========================
+! 6) Save Configuration
+! =========================
+end
+write memory

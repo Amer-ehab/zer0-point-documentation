@@ -1,0 +1,50 @@
+! ============================================================
+! SW-HQ-ACC-SOC — SOC Access Switch
+! VLAN: 40 (SOC)
+! ============================================================
+
+enable
+configure terminal
+
+hostname SW-HQ-ACC-SOC
+no ip domain-lookup
+service password-encryption
+
+vlan 40
+ name SOC
+
+! Uplink to Core-01
+interface Ethernet0/0
+ description UPLINK-to-CORE-01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 40
+ spanning-tree portfast trunk
+ no shutdown
+
+! Uplink to Core-02
+interface Ethernet0/1
+ description UPLINK-to-CORE-02
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 40
+ spanning-tree portfast trunk
+ no shutdown
+
+! Access Ports
+interface range Ethernet0/2 - 0/23
+ description SOC-DEVICES
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+
+! Storm Control
+interface range Ethernet0/2 - 0/23
+ storm-control broadcast level 5.00
+ storm-control multicast level 5.00
+ storm-control action shutdown
+
+end
+write memory

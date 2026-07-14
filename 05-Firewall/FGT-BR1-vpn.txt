@@ -1,0 +1,71 @@
+! ============================================================
+! FortiGate BR1 — IPSec VPN to HQ
+! ============================================================
+
+! Phase 1 (IKE)
+config vpn ipsec phase1-interface
+    edit "BR1-HQ-TUN1"
+        set interface "WAN_ORANGE"
+        set ike-version 2
+        set keylifeseconds 28800
+        set peertype any
+        set proposal aes256-sha256
+        set remote-gw 192.168.218.10
+        set psksecret ENC AK1...
+        set dpd enable
+    next
+    edit "BR1-HQ-TUN2"
+        set interface "WAN_WE"
+        set ike-version 2
+        set keylifeseconds 28800
+        set peertype any
+        set proposal aes256-sha256
+        set remote-gw 192.168.1.10
+        set psksecret ENC AK1...
+        set dpd enable
+    next
+end
+
+! Phase 2 (IPSec)
+config vpn ipsec phase2-interface
+    edit "BR1-HQ-TUN1-P2"
+        set phase1name "BR1-HQ-TUN1"
+        set proposal aes256-sha256
+        set keylifeseconds 3600
+        set auto-negotiate enable
+    next
+    edit "BR1-HQ-TUN2-P2"
+        set phase1name "BR1-HQ-TUN2"
+        set proposal aes256-sha256
+        set keylifeseconds 3600
+        set auto-negotiate enable
+    next
+end
+
+! Tunnel Interface IPs
+config system interface
+    edit "BR1-HQ-TUN1"
+        set ip 172.16.1.2 255.255.255.252
+        set remote-ip 172.16.1.1
+        set allowaccess ping
+    next
+    edit "BR1-HQ-TUN2"
+        set ip 172.16.2.2 255.255.255.252
+        set remote-ip 172.16.2.1
+        set allowaccess ping
+    next
+end
+
+! Static Routes to HQ
+config router static
+    edit 10
+        set dst 10.1.0.0 255.255.0.0
+        set device "BR1-HQ-TUN1"
+        set distance 10
+    next
+    edit 11
+        set dst 10.1.0.0 255.255.0.0
+        set device "BR1-HQ-TUN2"
+        set distance 20
+    next
+end

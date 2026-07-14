@@ -1,0 +1,76 @@
+! ============================================================
+! FortiGate BR2 — DHCP Server Configuration
+! ============================================================
+
+config system dhcp server
+    edit 1
+        set dns-service default
+        set default-gateway 10.3.10.1
+        set netmask 255.255.255.0
+        set interface "BR2-VLAN210-CLIENT"
+        config ip-range
+            edit 1
+                set start-ip 10.3.10.50
+                set end-ip 10.3.10.200
+            next
+        end
+        set dns-server1 8.8.8.8
+        set dns-server2 10.3.20.10
+    next
+    edit 2
+        set dns-service default
+        set default-gateway 10.3.20.1
+        set netmask 255.255.255.0
+        set interface "BR2-VLAN220-SERVERS"
+        config ip-range
+            edit 1
+                set start-ip 10.3.20.50
+                set end-ip 10.3.20.200
+            next
+        end
+        set dns-server1 8.8.8.8
+        set dns-server2 10.3.20.10
+    next
+    edit 3
+        set dns-service default
+        set default-gateway 10.3.30.1
+        set netmask 255.255.255.0
+        set interface "BR2-VLAN230-IT"
+        config ip-range
+            edit 1
+                set start-ip 10.3.30.50
+                set end-ip 10.3.30.200
+            next
+        end
+        set dns-server1 8.8.8.8
+        set dns-server2 10.3.20.10
+    next
+    edit 4
+        set dns-service default
+        set default-gateway 10.3.40.1
+        set netmask 255.255.255.0
+        set interface "BR2-VLAN240-MKT"
+        config ip-range
+            edit 1
+                set start-ip 10.3.40.50
+                set end-ip 10.3.40.200
+            next
+        end
+        set dns-server1 8.8.8.8
+        set dns-server2 10.3.20.10
+    next
+    edit 5
+        set dns-service default
+        set default-gateway 10.3.50.1
+        set netmask 255.255.255.0
+        set interface "BR2-VLAN250-MGMT"
+        config ip-range
+            edit 1
+                set start-ip 10.3.50.50
+                set end-ip 10.3.50.200
+            next
+        end
+        set dns-server1 8.8.8.8
+        set dns-server2 10.3.20.10
+    next
+end

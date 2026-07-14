@@ -1,0 +1,91 @@
+! ============================================================
+! FortiGate BR2 — Interface Configuration
+! Zer0-Po!nT Enterprise Network
+! ============================================================
+
+! Rename interfaces
+config system interface
+    edit "port1"
+        set alias "LAN_TRUNK"
+        set mode static
+        set ip 0.0.0.0 0.0.0.0
+        set role lan
+        set allowaccess ping
+    next
+    edit "port4"
+        set alias "WAN_ORANGE"
+        set mode dhcp
+        set allowaccess ping
+        set role wan
+    next
+    edit "port5"
+        set alias "WAN_WE"
+        set mode dhcp
+        set allowaccess ping
+        set role wan
+    next
+    edit "port3"
+        set alias "HA_HB"
+        set mode static
+        set ip 169.254.3.1 255.255.255.0
+        set allowaccess ping
+        set role undefined
+    next
+end
+
+! Create Software Switch for LAN
+config system switch-interface
+    edit "BR2-LAN-SW"
+        set member "port1" "port2"
+        set type switch
+    next
+end
+
+! Create VLAN Interfaces on Software Switch
+config system interface
+    edit "BR2-VLAN210-CLIENT"
+        set vdom "root"
+        set interface "BR2-LAN-SW"
+        set vlanid 210
+        set mode static
+        set ip 10.3.10.1 255.255.255.0
+        set allowaccess ping
+        set role lan
+    next
+    edit "BR2-VLAN220-SERVERS"
+        set vdom "root"
+        set interface "BR2-LAN-SW"
+        set vlanid 220
+        set mode static
+        set ip 10.3.20.1 255.255.255.0
+        set allowaccess ping https ssh
+        set role lan
+    next
+    edit "BR2-VLAN230-IT"
+        set vdom "root"
+        set interface "BR2-LAN-SW"
+        set vlanid 230
+        set mode static
+        set ip 10.3.30.1 255.255.255.0
+        set allowaccess ping
+        set role lan
+    next
+    edit "BR2-VLAN240-MKT"
+        set vdom "root"
+        set interface "BR2-LAN-SW"
+        set vlanid 240
+        set mode static
+        set ip 10.3.40.1 255.255.255.0
+        set allowaccess ping
+        set role lan
+    next
+    edit "BR2-VLAN250-MGMT"
+        set vdom "root"
+        set interface "BR2-LAN-SW"
+        set vlanid 250
+        set mode static
+        set ip 10.3.50.1 255.255.255.0
+        set allowaccess ping https ssh
+        set role lan
+    next
+end

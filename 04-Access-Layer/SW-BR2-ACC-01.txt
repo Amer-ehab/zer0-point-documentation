@@ -1,0 +1,88 @@
+! ============================================================
+! SW-BR2-ACC-01 — Branch-02 Access Switch
+! Zer0-Po!nT Enterprise Network
+! Role: Layer-2 Access, User Connectivity
+! ============================================================
+
+enable
+configure terminal
+
+hostname SW-BR2-ACC-01
+no ip domain-lookup
+
+! VLANs
+vlan 210
+ name BR2_CLIENT
+vlan 220
+ name BR2_SERVERS
+vlan 230
+ name BR2_IT
+vlan 240
+ name BR2_MKT
+vlan 250
+ name BR2_MGMT
+exit
+
+spanning-tree mode rapid-pvst
+
+! Uplink to Core-01
+interface Ethernet0/0
+ description UPLINK_TO_SW-BR2-CORE-01
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 210,220,230,240,250
+ switchport nonegotiate
+ spanning-tree portfast trunk
+ no shutdown
+exit
+
+! Uplink to Core-02
+interface Ethernet0/1
+ description UPLINK_TO_SW-BR2-CORE-02
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 210,220,230,240,250
+ switchport nonegotiate
+ spanning-tree portfast trunk
+ no shutdown
+exit
+
+! Access Ports
+interface Ethernet0/2
+ description CLIENT_USERS
+ switchport mode access
+ switchport access vlan 210
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+exit
+
+interface Ethernet0/3
+ description MGMT_DEVICES
+ switchport mode access
+ switchport access vlan 250
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+exit
+
+interface Ethernet0/4
+ description IT_USERS
+ switchport mode access
+ switchport access vlan 230
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+exit
+
+interface Ethernet0/5
+ description MKT_USERS
+ switchport mode access
+ switchport access vlan 240
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ no shutdown
+exit
+
+end
+write memory

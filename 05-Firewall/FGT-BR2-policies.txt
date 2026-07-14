@@ -1,0 +1,119 @@
+! ============================================================
+! FortiGate BR2 — Firewall Policies
+! ============================================================
+
+! Zone configuration
+config system zone
+    edit "ZONE_BR2_LAN"
+        set interface "BR2-VLAN210-CLIENT" "BR2-VLAN220-SERVERS" "BR2-VLAN230-IT" "BR2-VLAN240-MKT" "BR2-VLAN250-MGMT"
+    next
+end
+
+! Internet access policies
+config firewall policy
+    ! Client Internet Access
+    edit 1
+        set name "BR2_Client_Internet"
+        set srcintf "BR2-VLAN210-CLIENT"
+        set dstintf "virtual-wan-link"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+        set av-profile "BR2_AV_STANDARD"
+        set webfilter-profile "BR2_WEB_STANDARD"
+        set application-list "BR2_APP_STANDARD"
+        set ips-sensor "BR2_IPS_STANDARD"
+        set ssl-ssh-profile "certificate-inspection"
+        set dnsfilter-profile "BR2_DNS_STANDARD"
+        set file-filter-profile "BR2_FILE_FILTER"
+    next
+    ! Servers Policy
+    edit 2
+        set name "BR2_Servers_Policy"
+        set srcintf "BR2-VLAN220-SERVERS"
+        set dstintf "virtual-wan-link" "ZONE_BR2_LAN"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+    next
+    ! IT Internet Access
+    edit 3
+        set name "BR2_IT_Internet"
+        set srcintf "BR2-VLAN230-IT"
+        set dstintf "virtual-wan-link"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+        set av-profile "BR2_AV_STANDARD"
+        set webfilter-profile "BR2_WEB_STANDARD"
+        set application-list "BR2_APP_STANDARD"
+        set ips-sensor "BR2_IPS_STANDARD"
+        set ssl-ssh-profile "certificate-inspection"
+        set dnsfilter-profile "BR2_DNS_STANDARD"
+        set file-filter-profile "BR2_FILE_FILTER"
+    next
+    ! Marketing Internet Access
+    edit 4
+        set name "BR2_MKT_Internet"
+        set srcintf "BR2-VLAN240-MKT"
+        set dstintf "virtual-wan-link"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+        set av-profile "BR2_AV_STANDARD"
+        set webfilter-profile "BR2_WEB_STANDARD"
+        set application-list "BR2_APP_STANDARD"
+        set ips-sensor "BR2_IPS_STANDARD"
+        set ssl-ssh-profile "certificate-inspection"
+        set dnsfilter-profile "BR2_DNS_STANDARD"
+        set file-filter-profile "BR2_FILE_FILTER"
+    next
+    ! Mgmt Internet Access
+    edit 5
+        set name "BR2_Mgmt_Internet"
+        set srcintf "BR2-VLAN250-MGMT"
+        set dstintf "virtual-wan-link"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+        set av-profile "BR2_AV_STANDARD"
+        set webfilter-profile "BR2_WEB_PREMIUM"
+        set application-list "BR2_APP_PREMIUM"
+        set ips-sensor "BR2_IPS_PREMIUM"
+        set ssl-ssh-profile "certificate-inspection"
+        set dnsfilter-profile "BR2_DNS_PREMIUM"
+        set file-filter-profile "BR2_FILE_FILTER"
+    next
+    ! HQ Access via VPN
+    edit 10
+        set name "BR2_to_HQ"
+        set srcintf "ZONE_BR2_LAN"
+        set dstintf "BR2-HQ-TUN1" "BR2-HQ-TUN2"
+        set srcaddr "all"
+        set dstaddr "HQ_LAN"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end

@@ -1,0 +1,14 @@
+! ============================================================
+! FortiGate HQ — High Availability Configuration
+! ============================================================
+
+config system ha
+    set mode a-p
+    set group-name "HQ-FGT-HA"
+    set password ENC AK1...
+    set priority 200
+    set override enable
+    set heartbeat-interface "port3"
+    set hbdev "port3" 50
+    set monitor "port1" "port2" "port4" "port5"
+end
