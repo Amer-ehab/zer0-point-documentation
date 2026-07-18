@@ -14,6 +14,8 @@
 
 The FortiGate firewall clusters serve as the **security perimeter** and **WAN edge** for all Zer0-Po!nT sites.
 
+> Configuration was primarily done via the FortiGate GUI; the `.txt` files below represent the resulting device configuration.
+
 ### Key Functions
 
 - **Perimeter security** — All internet traffic passes through the firewall
