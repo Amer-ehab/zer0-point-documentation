@@ -2,12 +2,11 @@
 
 ## Table of Contents
 
-1. [High-Level Design](#high-level-design)
-2. [Layered Architecture](#layered-architecture)
-3. [Redundancy Strategy](#redundancy-strategy)
-4. [Traffic Flow](#traffic-flow)
-5. [Branch Connectivity](#branch-connectivity)
-
+1. [High-Level Design](#1-high-level-design)
+2. [Layered Architecture](#2-layered-architecture)
+3. [Redundancy Strategy](#3-redundancy-strategy)
+4. [Traffic Flow](#4-traffic-flow)
+5. [Branch Connectivity](#5-branch-connectivity)
 ---
 
 ## 1. High-Level Design
