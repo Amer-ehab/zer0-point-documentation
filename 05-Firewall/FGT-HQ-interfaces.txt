@@ -1,0 +1,43 @@
+! ============================================================
+! FortiGate HQ — Interface Configuration
+! Zer0-Po!nT Enterprise Network
+! ============================================================
+
+! --- WAN Interfaces ---
+config system interface
+    edit "port1"
+        set alias "WAN_ORANGE"
+        set mode dhcp
+        set allowaccess ping
+        set role wan
+    next
+    edit "port2"
+        set alias "WAN_WE"
+        set mode dhcp
+        set allowaccess ping
+        set role wan
+    next
+    edit "port3"
+        set alias "HA_HEARTBEAT"
+        set mode static
+        set ip 169.254.1.1 255.255.255.0
+        set allowaccess ping
+        set role undefined
+    next
+    edit "port4"
+        set alias "CORE-TRANSIT-BACKUP"
+        set mode static
+        set ip 10.1.98.1 255.255.255.0
+        set allowaccess ping https ssh
+        set role lan
+        set tcp-mss 1360
+    next
+    edit "port5"
+        set alias "CORE-TRANSIT-PRIMARY"
+        set mode static
+        set ip 10.1.99.1 255.255.255.0
+        set allowaccess ping https ssh
+        set role lan
+        set tcp-mss 1360
+    next
+end

@@ -1,0 +1,26 @@
+! ============================================================
+! FortiGate HQ — Static Routes
+! ============================================================
+
+config router static
+    ! Primary route to HQ LAN via CORE-01
+    edit 1
+        set dst 10.1.0.0 255.255.0.0
+        set gateway 10.1.99.2
+        set device "port5"
+        set distance 10
+    next
+    ! Backup route to HQ LAN via CORE-02
+    edit 2
+        set dst 10.1.0.0 255.255.0.0
+        set gateway 10.1.98.2
+        set device "port4"
+        set distance 20
+    next
+    ! Default route to SD-WAN
+    edit 3
+        set dst 0.0.0.0 0.0.0.0
+        set sdwan-zone "virtual-wan-link"
+        set distance 5
+    next
+end

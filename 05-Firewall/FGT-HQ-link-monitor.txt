@@ -1,0 +1,18 @@
+! ============================================================
+! FortiGate HQ — Link Monitor for Core Reachability
+! ============================================================
+
+config system link-monitor
+    edit "CORE01_MONITOR"
+        set srcintf "port5"
+        set server "10.1.99.2"
+        set failtime 3
+        set recoverytime 3
+    next
+    edit "CORE02_MONITOR"
+        set srcintf "port4"
+        set server "10.1.98.2"
+        set failtime 3
+        set recoverytime 3
+    next
+end

@@ -1,0 +1,25 @@
+! ============================================================
+! FortiGate HQ — Internet Access Policy
+! ============================================================
+
+config firewall policy
+    edit 1
+        set name "LAN_to_Internet"
+        set srcintf "port5" "port4"
+        set dstintf "virtual-wan-link"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+        set logtraffic all
+        set av-profile "HQ_AV_BASELINE_V1"
+        set webfilter-profile "HQ_WEB_FILTER_BASELINE_V1"
+        set application-list "HQ_APP_CONTROL_BASELINE_V1"
+        set ips-sensor "HQ_IPS_BASELINE_V1"
+        set ssl-ssh-profile "HQ_SSL_CERT_BASELINE_V1"
+        set dnsfilter-profile "HQ_DNS_FILTER_BASELINE_V1"
+        set file-filter-profile "HQ_FILE_FILTER_BASELINE_V1"
+    next
+end
