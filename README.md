@@ -17,8 +17,9 @@
 - ✅ **SD-WAN** — Intelligent dual-ISP path selection
 - ✅ **Site-to-Site VPN** — Redundant IPSec tunnels to all branches
 - ✅ **Active Directory Integration** — LDAP + FSSO identity-based policies
-- ✅ **Layered Security Profiles** — AV, IPS, Web Filter, App Control, DNS Filter, File Filter
-- ✅ **SOC / SIEM** — Wazuh-based centralized monitoring and detection
+- ✅ **Layered Security Profiles** — AV, IPS, Web Filter, App Control, DNS Filter, File Filter, Video Filter
+- ✅ **SOC / SIEM** — Wazuh-based centralized monitoring, with agents deployed across HQ, BR1, and BR2 domain controllers
+- ✅ **Centralized Log Management** — All branch FortiGates forwarding logs to FortiAnalyzer
 - ✅ **DMZ** — Public-facing web server with strict security controls
 
 ---
@@ -168,15 +169,14 @@ zer0-point/
 
 ## 🚀 Future Enhancements
 
-- [ ] Deploy Wazuh agents on BR1 and BR2 domain controllers
+## 🚀 Future Enhancements
+
 - [ ] Integrate FortiAnalyzer with Wazuh for unified visibility
-- [ ] Implement deep SSL inspection with internal PKI
-- [ ] Deploy video filtering profiles
 - [ ] Build SOAR playbooks for automated incident response
 - [ ] Add threat intelligence feeds (MISP/TAXII)
 - [ ] Implement network segmentation with micro-segmentation
 - [ ] Deploy endpoint detection and response (EDR)
-
+- [ ] Implement deep SSL inspection with internal PKI
 ---
 
 ## 📝 Author
@@ -186,7 +186,7 @@ zer0-point/
 **Institution:** Faculty of Electronic Engineering, Menoufia University  
 **Year:** 2026  
 afull demo :https://drive.google.com/file/d/175cjci1oUTmhtDmLvmcvgweNVr3Rlh3b/view?usp=drive_link
-**License:** This documentation is provided for educational purposes.
+
 
 ---
 
