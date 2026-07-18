@@ -2,13 +2,12 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [HQ FortiGate](#hq-fortigate)
-3. [BR1 FortiGate](#br1-fortigate)
-4. [BR2 FortiGate](#br2-fortigate)
-5. [High Availability](#high-availability)
-6. [Verification Commands](#verification-commands)
-
+1. [Overview](#1-overview)
+2. [HQ FortiGate](#2-hq-fortigate)
+3. [BR1 FortiGate](#3-br1-fortigate)
+4. [BR2 FortiGate](#4-br2-fortigate)
+5. [High Availability](#5-high-availability)
+6. [Verification Commands](#6-verification-commands)
 ---
 
 ## 1. Overview
