@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Design Principles](#design-principles)
-3. [Security Hardening](#security-hardening)
-4. [Configuration Files](#configuration-files)
-5. [Port Security](#port-security)
-
+1. [Overview](#1-overview)
+2. [Design Principles](#2-design-principles)
+3. [Security Hardening](#3-security-hardening)
+4. [Configuration Files](#4-configuration-files)
+5. [Port Security](#5-port-security)
+6. [Verification Commands](#6-verification-commands)
 ---
 
 ## 1. Overview
