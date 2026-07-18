@@ -21,7 +21,8 @@ The infrastructure is designed to support:
 - SOC operations
 - Secure internet access
 - Centralized firewalling
-- Future SD-WAN and branch connectivity
+- SD-WAN and multi-branch connectivity (HQ, BR1, BR2)
+- Scalability for future branches
 
 ---
 
@@ -62,6 +63,7 @@ The HQ network follows a **Dual-Core Campus Design** with centralized security a
      │   (VLAN 10)    │(VLAN20)│(VLAN30)│(VLAN40)│(VLAN60)│
      └─────────────────┴────────┴────────┴────────┴────────┘
 ```
+<img width="1322" height="829" alt="02-hq-topology-next-phase (2)" src="https://github.com/user-attachments/assets/152ee53f-0f60-4575-8955-e21f1515b2fc" />
 
 ---
 
