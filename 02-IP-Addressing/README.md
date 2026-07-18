@@ -142,15 +142,15 @@
 
 | Server | IP Address | Site | Role |
 |--------|------------|------|------|
-| DC1-HQ | 10.1.20.x | HQ | Primary Domain Controller |
-| DC2-HQ | 10.1.20.x | HQ | Secondary Domain Controller |
-| DC1-BR1 | 10.2.20.x | BR1 | Child Domain Controller |
-| DC1-BR2 | 10.3.20.x | BR2 | Child Domain Controller |
+| DC1-HQ | 10.1.20.10 | HQ | Primary Domain Controller |
+| DC2-HQ | 10.1.20.11 | HQ | Secondary Domain Controller |
+| DC1-BR1 | 10.2.20.10 | BR1 | Child Domain Controller |
+| DC1-BR2 | 10.3.20.10 | BR2 | Child Domain Controller |
 
 ### SOC Infrastructure
 
 | Component | IP Address | VLAN | Role |
 |-----------|------------|------|------|
-| Wazuh SIEM | 10.1.40.10 | 40 (SOC) | Log collection & analysis |
-| FortiAnalyzer | 10.1.40.x | 40 (SOC) | Firewall log aggregation |
+| Wazuh SIEM | 10.1.40.10 | 40 (SOC) | Log collection & analysis | 
+| FortiAnalyzer | 10.1.40.11 | 40 (SOC) | Firewall log aggregation |
 | SOC Server | 10.1.40.x | 40 (SOC) | Monitoring & dashboards |
