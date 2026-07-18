@@ -2,13 +2,12 @@
 
 ## Table of Contents
 
-1. [HQ VLANs & Subnets](#hq-vlans--subnets)
-2. [HSRP IP Allocation](#hsrp-ip-allocation)
-3. [Transit VLANs](#transit-vlans)
-4. [Branch-01 IP Plan](#branch-01-ip-plan)
-5. [Branch-02 IP Plan](#branch-02-ip-plan)
-6. [IP Addressing Summary](#ip-addressing-summary)
-
+1. [HQ VLANs & Subnets](#1-hq-vlans--subnets)
+2. [HSRP IP Allocation](#2-hsrp-ip-allocation)
+3. [Transit VLANs](#3-transit-vlans)
+4. [Branch-01 IP Plan](#4-branch-01-ip-plan)
+5. [Branch-02 IP Plan](#5-branch-02-ip-plan)
+6. [IP Addressing Summary](#6-ip-addressing-summary)
 ---
 
 ## 1. HQ VLANs & Subnets
