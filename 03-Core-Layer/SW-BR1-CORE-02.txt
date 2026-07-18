@@ -1,0 +1,58 @@
+! ============================================================
+! SW-BR1-CORE-02 — Branch-01 Secondary Core Switch
+! Zer0-Po!nT Enterprise Network
+! Role: Layer-2 Distribution, STP Root Secondary
+! ============================================================
+
+enable
+configure terminal
+
+hostname SW-BR1-CORE-02
+no ip domain-lookup
+
+! VLANs
+vlan 110
+ name BR1-CLIENT
+vlan 120
+ name BR1-MGMT
+vlan 130
+ name BR1-IT
+vlan 140
+ name BR1-MKT
+exit
+
+! Spanning Tree
+spanning-tree mode rapid-pvst
+spanning-tree vlan 110,120,130,140 root secondary
+
+! Trunk to FortiGate
+interface range Ethernet1/0-1
+ description TO_FGT-CLUSTER_LAN_TRUNK
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 110,120,130,140
+ switchport nonegotiate
+ no shutdown
+exit
+
+! Trunk to Access Switch
+interface range Ethernet0/0-2
+ description TO_SW-BR1-ACC-01_UPLINK2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 110,120,130,140
+ switchport nonegotiate
+ no shutdown
+exit
+
+interface Ethernet1/2
+ description TO_SW-BR1-ACC-01_UPLINK2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 110,120,130,140
+ switchport nonegotiate
+ no shutdown
+exit
+
+end
+write memory

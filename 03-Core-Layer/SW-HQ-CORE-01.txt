@@ -1,0 +1,201 @@
+! ============================================================
+! SW-HQ-CORE-01 — Primary Core Switch Configuration
+! Zer0-Po!nT Enterprise Network
+! Role: Active HSRP Gateway, STP Root Primary, Inter-VLAN Routing
+! ============================================================
+
+enable
+configure terminal
+
+! =========================
+! 1) Basic Device Settings
+! =========================
+hostname SW-HQ-CORE-01
+no ip domain-lookup
+service password-encryption
+
+! Enable Layer 3 routing
+ip routing
+
+! =========================
+! 2) Spanning Tree
+! =========================
+spanning-tree mode rapid-pvst
+! Make Core-01 the STP Root for all campus VLANs
+spanning-tree vlan 10,20,30,40,50,60,61,70 root primary
+
+! =========================
+! 3) VLAN Database
+! =========================
+vlan 10
+ name MGMT
+vlan 20
+ name SERVERS
+vlan 30
+ name USERS
+vlan 40
+ name SOC
+vlan 50
+ name DMZ
+vlan 60
+ name WIFI
+vlan 61
+ name WIFI_GUEST
+vlan 70
+ name CCTV
+vlan 99
+ name TRANSIT_CORE01_TO_FGT_PORT5
+
+! =========================
+! 4) Trunk Links
+! =========================
+
+! --- Core Interconnect ---
+interface Ethernet0/0
+ description CORE-INTERCONNECT-to-CORE02
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50,60,61,70
+ no shutdown
+
+! --- Uplink to ACC-MGMT ---
+interface Ethernet0/1
+ description TRUNK-to-ACC-MGMT
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10
+ no shutdown
+
+! --- Uplink to ACC-SERVERS ---
+interface Ethernet0/2
+ description TRUNK-to-ACC-SERVERS
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 20
+ no shutdown
+
+! --- Uplink to ACC-USERS ---
+interface Ethernet0/3
+ description TRUNK-to-ACC-USERS
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 30
+ no shutdown
+
+! --- Uplink to ACC-SOC ---
+interface Ethernet1/0
+ description TRUNK-to-ACC-SOC
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 40
+ no shutdown
+
+! --- Uplink to ACC-WIFI ---
+interface Ethernet1/1
+ description TRUNK-to-ACC-WIFI
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 60,61
+ no shutdown
+
+! --- Uplink to ACC-CCTV ---
+interface Ethernet1/2
+ description TRUNK-to-ACC-CCTV
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 70
+ no shutdown
+
+! --- Transit to FortiGate (port5) ---
+interface range Ethernet1/3, Ethernet2/0
+ description TO_FGT_HA_PORT5_TRANSIT
+ switchport mode access
+ switchport access vlan 99
+ spanning-tree portfast
+ no shutdown
+
+! =========================
+! 5) SVIs (Gateways) + HSRP
+! =========================
+! Core-01 IP = .2 | Core-02 IP = .3 | HSRP VIP = .1
+
+interface Vlan10
+ description SVI-MGMT
+ ip address 10.1.10.2 255.255.255.0
+ standby 10 ip 10.1.10.1
+ standby 10 priority 110
+ standby 10 preempt
+ no shutdown
+
+interface Vlan20
+ description SVI-SERVERS
+ ip address 10.1.20.2 255.255.255.0
+ standby 20 ip 10.1.20.1
+ standby 20 priority 110
+ standby 20 preempt
+ no shutdown
+
+interface Vlan30
+ description SVI-USERS
+ ip address 10.1.30.2 255.255.255.0
+ standby 30 ip 10.1.30.1
+ standby 30 priority 110
+ standby 30 preempt
+ no shutdown
+
+interface Vlan40
+ description SVI-SOC
+ ip address 10.1.40.2 255.255.255.0
+ standby 40 ip 10.1.40.1
+ standby 40 priority 110
+ standby 40 preempt
+ no shutdown
+
+interface Vlan50
+ description SVI-DMZ
+ ip address 10.1.50.2 255.255.255.0
+ standby 50 ip 10.1.50.1
+ standby 50 priority 110
+ standby 50 preempt
+ no shutdown
+
+interface Vlan60
+ description SVI-WIFI
+ ip address 10.1.60.2 255.255.255.0
+ standby 60 ip 10.1.60.1
+ standby 60 priority 110
+ standby 60 preempt
+ no shutdown
+
+interface Vlan61
+ description SVI-WIFI-GUEST
+ ip address 10.1.61.2 255.255.255.0
+ standby 61 ip 10.1.61.1
+ standby 61 priority 110
+ standby 61 preempt
+ no shutdown
+
+interface Vlan70
+ description SVI-CCTV
+ ip address 10.1.70.2 255.255.255.0
+ standby 70 ip 10.1.70.1
+ standby 70 priority 110
+ standby 70 preempt
+ no shutdown
+
+! --- Transit SVI (No HSRP) ---
+interface Vlan99
+ description TRANSIT_TO_FORTIGATE_PORT5
+ ip address 10.1.99.2 255.255.255.0
+ no shutdown
+
+! =========================
+! 6) Default Route to Firewall
+! =========================
+ip route 0.0.0.0 0.0.0.0 10.1.99.1
+
+! =========================
+! 7) Save Configuration
+! =========================
+end
+write memory
