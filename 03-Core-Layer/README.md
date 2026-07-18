@@ -106,8 +106,8 @@ spanning-tree vlan 10,20,30,40,50,60,61,70 root secondary  ! On CORE-02
 |------|--------------|
 | [SW-HQ-CORE-01.txt](SW-HQ-CORE-01.txt) | HQ Primary core — Active HSRP, STP Root Primary |
 | [SW-HQ-CORE-02.txt](SW-HQ-CORE-02.txt) | HQ Secondary core — Standby HSRP, STP Root Secondary |
-| [SW-BR1-CORE-01.txt](SW-BR1-CORE-01.txt) | BR1 core switch 01 |
-| [SW-BR1-CORE-02.txt](SW-BR1-CORE-02.txt) | BR1 core switch 02 |
+| [SW-BR1-CORE-01.txt](SW-BR1-CORE-01.txt) | BR1 core switch 01 — STP Root Primary |
+| [SW-BR1-CORE-02.txt](SW-BR1-CORE-02.txt) | BR1 core switch 02 — STP Root Secondary|
 | [SW-BR2-CORE-01.txt](SW-BR2-CORE-01.txt) | BR2 core switch 01 — STP Root Primary |
 | [SW-BR2-CORE-02.txt](SW-BR2-CORE-02.txt) | BR2 core switch 02 — STP Root Secondary |
 
