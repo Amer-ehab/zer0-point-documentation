@@ -73,9 +73,10 @@ storm-control action shutdown
 | [SW-HQ-ACC-MGMT.txt](SW-HQ-ACC-MGMT.txt) | Management devices switch | VLAN 10 |
 | [SW-HQ-ACC-USERS.txt](SW-HQ-ACC-USERS.txt) | User workstations switch | VLAN 30 |
 | [SW-HQ-ACC-SOC.txt](SW-HQ-ACC-SOC.txt) | SOC infrastructure switch | VLAN 40 |
+| [SW-BR1-ACC-01.txt](SW-BR1-ACC-01.txt) | BR1 access switch | Multiple (110/120/130/140) |
+| [SW-BR2-ACC-01.txt](SW-BR2-ACC-01.txt) | BR2 access switch | Multiple (210/220/230/240/250) |
 
-> Additional access switches (ACC-SERVERS, ACC-WIFI, ACC-CCTV) follow the same template pattern.
-
+> Additional HQ access switches (ACC-SERVERS, ACC-WIFI, ACC-CCTV) follow the same template pattern and are not included as separate files.
 ---
 
 ## 5. Port Security
