@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Core Switch Roles](#core-switch-roles)
-3. [HSRP Design](#hsrp-design)
-4. [Spanning Tree](#spanning-tree)
-5. [Transit VLANs](#transit-vlans)
-6. [Configuration Files](#configuration-files)
-7. [Verification Commands](#verification-commands)
+1. [Overview](#1-overview)
+2. [Core Switch Roles](#2-core-switch-roles)
+3. [HSRP Design](#3-hsrp-design)
+4. [Spanning Tree](#4-spanning-tree)
+5. [Transit VLANs](#5-transit-vlans)
+6. [Configuration Files](#6-configuration-files)
+7. [Verification Commands](#7-verification-commands)
 
 ---
 
