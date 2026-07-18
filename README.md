@@ -52,6 +52,7 @@
      │   VPN Tunnels     │◄───── IPSec over SD-WAN ─────► Branch-01 & Branch-02
      └───────────────────┘
 ```
+<img width="1599" height="886" alt="all_final_topology" src="https://github.com/user-attachments/assets/949c1494-d227-4f16-9d00-ddd14951d3f3" />
 
 ---
 
