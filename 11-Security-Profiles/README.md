@@ -2,13 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [HQ Security Profiles](#hq-security-profiles)
-3. [BR1 Security Profiles](#br1-security-profiles)
-4. [BR2 Security Profiles](#br2-security-profiles)
-5. [DMZ Security Profiles](#dmz-security-profiles)
-6. [Profile Application Matrix](#profile-application-matrix)
-
+1. [Overview](#1-overview)
+   - [1.1 Design Note — Consolidated HQ Policy](#11-design-note--consolidated-hq-policy)
+   - [1.2 Deferred Profile — Video Filter](#12-deferred-profile--video-filter)
+2. [HQ Security Profiles](#2-hq-security-profiles)
+3. [BR1 Security Profiles](#3-br1-security-profiles)
+4. [BR2 Security Profiles](#4-br2-security-profiles)
+5. [DMZ Security Profiles](#5-dmz-security-profiles)
+6. [Profile Application Matrix](#6-profile-application-matrix)
+7. [Verification Commands](#7-verification-commands)
 ---
 
 ## 1. Overview
