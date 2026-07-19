@@ -149,6 +149,8 @@ zer0-point/
 | Identity | LDAP + FSSO | AD-integrated policies |
 | SIEM | Wazuh | Custom detection rules |
 
+- ✅ **Layered Security Profiles** — AV, IPS, Web Filter, App Control, DNS Filter, File Filter
+
 ---
 
 ## ✅ Testing Results
@@ -170,8 +172,7 @@ zer0-point/
 
 ## 🚀 Future Enhancements
 
-## 🚀 Future Enhancements
-
+- [ ] Deploy HQ video filtering profile (pending deep SSL inspection & licensing)
 - [ ] Integrate FortiAnalyzer with Wazuh for unified visibility
 - [ ] Build SOAR playbooks for automated incident response
 - [ ] Add threat intelligence feeds (MISP/TAXII)
