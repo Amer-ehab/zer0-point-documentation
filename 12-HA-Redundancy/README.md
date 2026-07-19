@@ -206,7 +206,7 @@ execute ping 8.8.8.8        ! Verify internet access
 - [x] Dual Uplinks per Access Switch
 - [x] Dual VPN Paths (ORANGE + WE)
 
-> **Result:** The HQ network has **zero single points of failure**.
+> **Result:** The Zer0-Po!nT network (HQ, BR1, BR2) has **zero single points of failure**.
 
 ---
 
