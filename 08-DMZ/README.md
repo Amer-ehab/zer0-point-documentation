@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [DMZ Design](#dmz-design)
-3. [Core Switch Changes](#core-switch-changes)
-4. [FortiGate DMZ Configuration](#fortigate-dmz-configuration)
-5. [Security Profiles](#security-profiles)
-6. [NAT & Publishing](#nat--publishing)
-
+1. [Overview](#1-overview)
+2. [DMZ Design](#2-dmz-design)
+3. [Core Switch Changes](#3-core-switch-changes)
+4. [FortiGate DMZ Configuration](#4-fortigate-dmz-configuration)
+5. [Security Profiles for DMZ](#5-security-profiles-for-dmz)
+6. [NAT & Publishing](#6-nat--publishing)
+7. [Verification Commands](#7-verification-commands)
 ---
 
 ## 1. Overview
