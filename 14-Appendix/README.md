@@ -2,13 +2,12 @@
 
 ## Table of Contents
 
-1. [Device Naming Convention](#device-naming-convention)
-2. [Port Reference](#port-reference)
-3. [Command Reference](#command-reference)
-4. [Troubleshooting Guide](#troubleshooting-guide)
-5. [MTU/MSS Issue Resolution](#mtumss-issue-resolution)
-6. [Glossary](#glossary)
-
+1. [Device Naming Convention](#1-device-naming-convention)
+2. [Port Reference](#2-port-reference)
+3. [Command Reference](#3-command-reference)
+4. [Troubleshooting Guide](#4-troubleshooting-guide)
+5. [MTU/MSS Issue Resolution](#5-mtumss-issue-resolution)
+6. [Glossary](#6-glossary)
 ---
 
 ## 1. Device Naming Convention
