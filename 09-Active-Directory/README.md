@@ -2,16 +2,16 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [AD Forest Structure](#ad-forest-structure)
-3. [Domain Controllers](#domain-controllers)
-4. [Sites & Subnets](#sites--subnets)
-5. [OU Structure](#ou-structure)
-6. [Group Policy Objects](#group-policy-objects)
-7. [FortiGate LDAP Integration](#fortigate-ldap-integration)
-8. [FSSO (Single Sign-On)](#fsso-single-sign-on)
-9. [Identity-Based Policies](#identity-based-policies)
-
+1. [Overview](#1-overview)
+2. [AD Forest Structure](#2-ad-forest-structure)
+3. [Domain Controllers](#3-domain-controllers)
+4. [Sites & Subnets](#4-sites--subnets)
+5. [OU Structure](#5-ou-structure)
+6. [Group Policy Objects](#6-group-policy-objects)
+7. [FortiGate LDAP Integration](#7-fortigate-ldap-integration)
+8. [FSSO (Single Sign-On)](#8-fsso-single-sign-on)
+9. [Identity-Based Policies](#9-identity-based-policies)
+10. [Verification Commands](#10-verification-commands)
 ---
 
 ## 1. Overview
