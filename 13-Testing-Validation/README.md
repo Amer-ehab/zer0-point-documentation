@@ -323,6 +323,20 @@ diagnose debug fsso user-list
 | 2 | Check Wazuh Dashboard | Alert visible | ✅ |
 | 3 | Verify event ID | 1102 confirmed | ✅ |
 
+### Privilege Escalation Detection
+
+| Step | Action | Expected Alert | Result |
+|------|--------|---------------|--------|
+| 1 | Add user to Domain Admins group on DC1-BR2 | Alert (rule.id 100004) | ✅ |
+| 2 | Check Wazuh Dashboard | Alert visible with target account details | ✅ |
+| 3 | Verify event ID | 4728 confirmed | ✅ |
+
+### RDP Login Detection
+
+| Step | Action | Expected Alert | Result |
+|------|--------|---------------|--------|
+| 1 | RDP login to DC1-BR2 | Alert (rule.id 100040) | ✅ |
+| 2 | Check Wazuh Dashboard | Alert visible, Logon Type 10 confirmed | ✅ |
 ---
 
 ## 11. Test Summary
