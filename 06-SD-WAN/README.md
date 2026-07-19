@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [SD-WAN at HQ](#sd-wan-at-hq)
-3. [SD-WAN at BR1](#sd-wan-at-br1)
-4. [SD-WAN at BR2](#sd-wan-at-br2)
-5. [Performance SLAs](#performance-slas)
-6. [SD-WAN Rules](#sd-wan-rules)
-
+1. [Overview](#1-overview)
+2. [SD-WAN at HQ](#2-sd-wan-at-hq)
+3. [SD-WAN at BR1](#3-sd-wan-at-br1)
+4. [SD-WAN at BR2](#4-sd-wan-at-br2)
+5. [Performance SLAs](#5-performance-slas)
+6. [SD-WAN Rules](#6-sd-wan-rules)
+7. [Verification Commands](#7-verification-commands)
 ---
 
 ## 1. Overview
