@@ -2,15 +2,14 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Core Layer HA](#core-layer-ha)
-3. [Firewall HA](#firewall-ha)
-4. [ISP Redundancy](#isp-redundancy)
-5. [VPN Redundancy](#vpn-redundancy)
-6. [AD Redundancy](#ad-redundancy)
-7. [Failover Testing](#failover-testing)
-8. [Redundancy Summary](#redundancy-summary)
-
+1. [Overview](#1-overview)
+2. [Core Layer HA](#2-core-layer-ha)
+3. [Firewall HA](#3-firewall-ha)
+4. [ISP Redundancy](#4-isp-redundancy)
+5. [VPN Redundancy](#5-vpn-redundancy)
+6. [AD Redundancy](#6-ad-redundancy)
+7. [Failover Testing](#7-failover-testing)
+8. [Redundancy Summary](#8-redundancy-summary)
 ---
 
 ## 1. Overview
