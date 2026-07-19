@@ -1,0 +1,20 @@
+! ============================================================
+! DMZ_AV — Antivirus Profile for DMZ
+! Applied to: DMZ inbound web publishing policy
+! ============================================================
+
+config antivirus profile
+    edit "DMZ_AV"
+        set comment "AV for DMZ web publishing"
+        config http
+            set options scan
+            set av-scan block
+        end
+        config https
+            set options scan
+            set av-scan block
+        end
+        set outbreak-prevention block
+        set quarantine enable
+    next
+end

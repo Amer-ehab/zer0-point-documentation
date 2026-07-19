@@ -1,0 +1,36 @@
+! ============================================================
+! BR1_AV_STANDARD — Antivirus Profile
+! Applied to: All outbound internet policies in BR1
+! ============================================================
+
+config antivirus profile
+    edit "BR1_AV_STANDARD"
+        set comment "Standard AV for BR1 outbound traffic"
+        config http
+            set options scan
+            set av-scan block
+        end
+        config ftp
+            set options scan
+            set av-scan block
+        end
+        config imap
+            set options scan
+            set av-scan block
+        end
+        config pop3
+            set options scan
+            set av-scan block
+        end
+        config smtp
+            set options scan
+            set av-scan block
+        end
+        config cifs
+            set options scan
+            set av-scan block
+        end
+        set outbreak-prevention block
+        set external-blocklist enable
+    next
+end

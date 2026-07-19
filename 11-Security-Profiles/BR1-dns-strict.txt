@@ -1,0 +1,58 @@
+! ============================================================
+! BR1_DNS_STRICT — Strict DNS Filtering Profile
+! Applied to: General client and limited internet access policies
+! ============================================================
+
+config dnsfilter profile
+    edit "BR1_DNS_STRICT"
+        set comment "Strict DNS filtering for BR1 general clients"
+        config ftgd-dns
+            set options error-allow
+            config filters
+                edit 1
+                    set category 2      ! Botnet
+                    set action block
+                next
+                edit 2
+                    set category 7      ! Malicious
+                    set action block
+                next
+                edit 3
+                    set category 8      ! Phishing
+                    set action block
+                next
+                edit 4
+                    set category 11     ! Spam
+                    set action block
+                next
+                edit 5
+                    set category 12     ! Adware
+                    set action block
+                next
+                edit 6
+                    set category 43     ! Newly Observed Domain
+                    set action block
+                next
+                edit 7
+                    set category 44     ! Newly Registered Domain
+                    set action block
+                next
+                edit 8
+                    set category 45     ! Dynamic DNS
+                    set action block
+                next
+                edit 9
+                    set category 46     ! Evasive
+                    set action block
+                next
+                edit 10
+                    set category 47     ! Cryptocurrency
+                    set action block
+                next
+            end
+        end
+        set log-all-domain enable
+        set sdns-ftgd-err-log enable
+        set sdns-domain-log enable
+    next
+end

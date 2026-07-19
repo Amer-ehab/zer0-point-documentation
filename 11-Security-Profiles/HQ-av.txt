@@ -1,0 +1,43 @@
+! ============================================================
+! HQ_AV_BASELINE_V1 — HQ Antivirus Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config antivirus profile
+    edit "HQ_AV_BASELINE_V1"
+        set comment "Baseline AV for HQ outbound traffic"
+        config http
+            set options scan
+            set av-scan block
+        end
+        config https
+            set options scan
+            set av-scan block
+        end
+        config ftp
+            set options scan
+            set av-scan block
+        end
+        config imap
+            set options scan
+            set av-scan block
+        end
+        config pop3
+            set options scan
+            set av-scan block
+        end
+        config smtp
+            set options scan
+            set av-scan block
+        end
+        config cifs
+            set options scan
+            set av-scan block
+        end
+        set outbreak-prevention block
+        set external-blocklist enable
+        set quarantine enable
+        set treat-windows-exe-as-virus enable
+        set treat-mobile-malware enable
+    next
+end

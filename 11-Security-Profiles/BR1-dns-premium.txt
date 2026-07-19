@@ -1,0 +1,32 @@
+! ============================================================
+! BR1_DNS_PREMIUM — Premium DNS Filtering Profile
+! Applied to: Management internet access
+! ============================================================
+
+config dnsfilter profile
+    edit "BR1_DNS_PREMIUM"
+        set comment "Premium DNS filtering for BR1 management"
+        config ftgd-dns
+            set options error-allow
+            config filters
+                edit 1
+                    set category 2      ! Botnet
+                    set action block
+                next
+                edit 2
+                    set category 7      ! Malicious
+                    set action block
+                next
+                edit 3
+                    set category 8      ! Phishing
+                    set action block
+                next
+                edit 4
+                    set category 46     ! Evasive
+                    set action block
+                next
+            end
+        end
+        set log-all-domain enable
+    next
+end

@@ -1,0 +1,42 @@
+! ============================================================
+! BR2_FILE_FILTER — File Filtering Profile
+! Applied to: All outbound internet policies in BR2
+! ============================================================
+
+config file-filter profile
+    edit "BR2_FILE_FILTER"
+        set comment "File filter for BR2 outbound policies"
+        config rules
+            edit "BLOCK_TORRENT"
+                set protocol http https ftp
+                set action block
+                set direction any
+                set file-type "torrent"
+            next
+            edit "MONITOR_EXECUTABLE"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "executable"
+            next
+            edit "MONITOR_SCRIPT"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "script"
+            next
+            edit "MONITOR_ARCHIVE"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "archive"
+            next
+            edit "MONITOR_DOCUMENT"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "document"
+            next
+        end
+    next
+end

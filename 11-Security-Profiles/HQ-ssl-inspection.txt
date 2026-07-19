@@ -1,0 +1,43 @@
+! ============================================================
+! HQ_SSL_CERT_BASELINE_V1 — HQ SSL/SSH Inspection Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config firewall ssl-ssh-profile
+    edit "HQ_SSL_CERT_BASELINE_V1"
+        set comment "Certificate inspection for HQ"
+        config https
+            set ports 443
+            set status certificate-inspection
+        end
+        config smtps
+            set ports 465
+            set status certificate-inspection
+        end
+        config pop3s
+            set ports 995
+            set status certificate-inspection
+        end
+        config imaps
+            set ports 993
+            set status certificate-inspection
+        end
+        config ftps
+            set ports 990
+            set status certificate-inspection
+        end
+        config dns-over-tls
+            set ports 853
+            set status certificate-inspection
+        end
+        set ssl-anomalies-log enable
+        set ssl-invalid-server-cert-block enable
+        set ssl-invalid-server-cert-log enable
+        set ssl-expired-server-cert-block enable
+        set ssl-expired-server-cert-log enable
+        set ssl-revoked-server-cert-block enable
+        set ssl-revoked-server-cert-log enable
+        set ssl-fail-server-cert-block enable
+        set ssl-fail-server-cert-log enable
+    next
+end

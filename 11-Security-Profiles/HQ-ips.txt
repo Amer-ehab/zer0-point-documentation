@@ -1,0 +1,34 @@
+! ============================================================
+! HQ_IPS_BASELINE_V1 — HQ IPS Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config ips sensor
+    edit "HQ_IPS_BASELINE_V1"
+        set comment "Baseline IPS for HQ internal network"
+        config entries
+            edit 1
+                set rule 10000          ! Critical signatures
+                set status enable
+                set action block
+            next
+            edit 2
+                set rule 10001          ! High signatures
+                set status enable
+                set action block
+            next
+            edit 3
+                set rule 10002          ! Medium signatures
+                set status enable
+                set action monitor
+            next
+            edit 4
+                set rule 10003          ! Low signatures
+                set status enable
+                set action monitor
+            next
+        end
+        set scan-botnet-connections block
+        set block-malicious-url enable
+    next
+end

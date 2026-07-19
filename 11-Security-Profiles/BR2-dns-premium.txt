@@ -1,0 +1,32 @@
+! ============================================================
+! BR2_DNS_PREMIUM — Premium DNS Filtering Profile
+! Applied to: Management internet access
+! ============================================================
+
+config dnsfilter profile
+    edit "BR2_DNS_PREMIUM"
+        set comment "Premium DNS filtering for BR2 management"
+        config ftgd-dns
+            set options error-allow
+            config filters
+                edit 1
+                    set category 2
+                    set action block
+                next
+                edit 2
+                    set category 7
+                    set action block
+                next
+                edit 3
+                    set category 8
+                    set action block
+                next
+                edit 4
+                    set category 46
+                    set action block
+                next
+            end
+        end
+        set log-all-domain enable
+    next
+end

@@ -1,0 +1,111 @@
+! ============================================================
+! BR1_WEB_STRICT — Strict Web Filtering Profile
+! Applied to: General clients / limited internet access users
+! ============================================================
+! Note: This tier relies primarily on the static URL table
+! (BR1_URL_STRICT_TABLE) rather than FortiGuard category
+! licensing, since strict-tier clients are not granted
+! category-based web access in the lab environment.
+! ============================================================
+
+config webfilter profile
+    edit "BR1_WEB_STRICT"
+        set comment "Strict web filtering for BR1 general clients (relies on static URL table)"
+        config web
+            set log-search-query enable
+            set url-log enable
+            set block-invalid-url enable
+        end
+        config ftgd-wf
+            set options error-allow
+            config filters
+                edit 1
+                    set category 26     ! Proxy Avoidance
+                    set action block
+                next
+                edit 2
+                    set category 61     ! Malicious Websites
+                    set action block
+                next
+                edit 3
+                    set category 62     ! Phishing
+                    set action block
+                next
+                edit 4
+                    set category 86     ! Dynamic DNS
+                    set action block
+                next
+                edit 5
+                    set category 14     ! Social Networking
+                    set action block
+                next
+                edit 6
+                    set category 23     ! Streaming Media
+                    set action block
+                next
+            end
+        end
+        ! ---- BR1_URL_STRICT_TABLE ----
+        ! Static URL filtering table linked to this profile.
+        ! Blocks high-risk domains associated with VPN bypass,
+        ! anonymization, and unsafe internet usage in the absence
+        ! of licensed category-based filtering.
+        config url-filter
+            edit 1
+                set url "*anonymizer*"
+                set type wildcard
+                set action block
+            next
+            edit 2
+                set url "*vpn*"
+                set type wildcard
+                set action block
+            next
+            edit 3
+                set url "*tor*"
+                set type wildcard
+                set action block
+            next
+            edit 4
+                set url "*psiphon*"
+                set type wildcard
+                set action block
+            next
+            edit 5
+                set url "*ultrasurf*"
+                set type wildcard
+                set action block
+            next
+            edit 6
+                set url "*p2p*"
+                set type wildcard
+                set action block
+            next
+            edit 7
+                set url "*torrent*"
+                set type wildcard
+                set action block
+            next
+            edit 8
+                set url "*proxy*"
+                set type wildcard
+                set action block
+            next
+            edit 9
+                set url "*facebook.com*"
+                set type wildcard
+                set action block
+            next
+            edit 10
+                set url "*instagram.com*"
+                set type wildcard
+                set action block
+            next
+            edit 11
+                set url "*youtube.com*"
+                set type wildcard
+                set action block
+            next
+        end
+    next
+end

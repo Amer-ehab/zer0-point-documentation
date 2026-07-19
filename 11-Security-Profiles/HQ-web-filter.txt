@@ -1,0 +1,124 @@
+! ============================================================
+! HQ_WEB_FILTER_BASELINE_V1 — HQ Web Filtering Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config webfilter profile
+    edit "HQ_WEB_FILTER_BASELINE_V1"
+        set comment "Baseline web filter for HQ outbound internet"
+        config web
+            set log-search-query enable
+            set url-log enable
+            set block-invalid-url enable
+            set rate-url-by-domain-ip enable
+        end
+        config ftgd-wf
+            set options error-allow
+            config filters
+                edit 1
+                    set category 26     ! Proxy Avoidance
+                    set action block
+                next
+                edit 2
+                    set category 61     ! Malicious Websites
+                    set action block
+                next
+                edit 3
+                    set category 62     ! Phishing
+                    set action block
+                next
+                edit 4
+                    set category 86     ! Dynamic DNS
+                    set action block
+                next
+                edit 5
+                    set category 88     ! Cryptocurrency Mining
+                    set action block
+                next
+                edit 6
+                    set category 89     ! Terrorism
+                    set action block
+                next
+                edit 7
+                    set category 90     ! Child Sexual Abuse
+                    set action block
+                next
+                edit 8
+                    set category 91     ! Hacking
+                    set action block
+                next
+                edit 9
+                    set category 15     ! Plagiarism
+                    set action monitor
+                next
+                edit 10
+                    set category 16     ! Extremist Groups
+                    set action monitor
+                next
+                edit 11
+                    set category 17     ! Explicit Violence
+                    set action monitor
+                next
+                edit 12
+                    set category 18     ! Discrimination
+                    set action monitor
+                next
+                edit 13
+                    set category 19     ! Illegal or Unethical
+                    set action monitor
+                next
+                edit 14
+                    set category 20     ! Drug Abuse
+                    set action monitor
+                next
+            end
+        end
+        config url-filter
+            edit 1
+                set url "*proxy*"
+                set type wildcard
+                set action block
+            next
+            edit 2
+                set url "*anonymizer*"
+                set type wildcard
+                set action block
+            next
+            edit 3
+                set url "*vpn*"
+                set type wildcard
+                set action block
+            next
+            edit 4
+                set url "*tor*"
+                set type wildcard
+                set action block
+            next
+            edit 5
+                set url "*psiphon*"
+                set type wildcard
+                set action block
+            next
+            edit 6
+                set url "*ultrasurf*"
+                set type wildcard
+                set action block
+            next
+            edit 7
+                set url "*facebook.com*"
+                set type wildcard
+                set action monitor
+            next
+            edit 8
+                set url "*instagram.com*"
+                set type wildcard
+                set action monitor
+            next
+            edit 9
+                set url "*youtube.com*"
+                set type wildcard
+                set action monitor
+            next
+        end
+    next
+end

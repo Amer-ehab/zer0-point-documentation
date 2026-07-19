@@ -1,0 +1,18 @@
+<!-- ============================================================ -->
+<!-- Wazuh Rule: Brute Force Detection -->
+<!-- File: /var/ossec/etc/rules/local_rules.xml -->
+<!-- Description: Detects 5 failed login attempts within 60 seconds -->
+<!-- Event ID: 4625 (An account failed to log on) -->
+<!-- MITRE ATT&CK: T1110 (Brute Force) -->
+<!-- ============================================================ -->
+
+<group name="windows,windows_security,authentication_failure,brute_force,">
+    <rule id="100001" level="10" frequency="5" timeframe="60">
+        <if_matched_sid>18107</if_matched_sid>
+        <description>Multiple failed login attempts detected - Possible Brute Force Attack</description>
+        <mitre>
+            <id>T1110</id>
+        </mitre>
+        <group>brute_force,authentication_failure,</group>
+    </rule>
+</group>

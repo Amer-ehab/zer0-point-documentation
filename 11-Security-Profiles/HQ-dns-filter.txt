@@ -1,0 +1,39 @@
+! ============================================================
+! HQ_DNS_FILTER_BASELINE_V1 — HQ DNS Filtering Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config dnsfilter profile
+    edit "HQ_DNS_FILTER_BASELINE_V1"
+        set comment "Baseline DNS filter for HQ"
+        config ftgd-dns
+            set options error-allow
+            config filters
+                edit 1
+                    set category 2      ! Botnet
+                    set action block
+                next
+                edit 2
+                    set category 7      ! Malicious
+                    set action block
+                next
+                edit 3
+                    set category 8      ! Phishing
+                    set action block
+                next
+                edit 4
+                    set category 43     ! Newly Observed Domain
+                    set action monitor
+                next
+                edit 5
+                    set category 45     ! Dynamic DNS
+                    set action monitor
+                next
+            end
+        end
+        set log-all-domain enable
+        set sdns-ftgd-err-log enable
+        set sdns-domain-log enable
+        set safe-search enable
+    next
+end

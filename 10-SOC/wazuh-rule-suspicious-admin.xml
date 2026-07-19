@@ -1,0 +1,29 @@
+<!-- ============================================================ -->
+<!-- Wazuh Rule: Suspicious Admin Activity Detection -->
+<!-- File: /var/ossec/etc/rules/local_rules.xml -->
+<!-- Description: Detects suspicious administrative actions -->
+<!-- Event IDs: 4738 (User account changed), 4781 (Account name changed) -->
+<!-- MITRE ATT&CK: T1098 (Account Manipulation) -->
+<!-- ============================================================ -->
+
+<group name="windows,windows_security,account_manipulation,">
+    <rule id="100007" level="8">
+        <if_sid>18107</if_sid>
+        <field name="win.system.eventID">^4738$</field>
+        <description>User account changed - Monitor for unauthorized modifications</description>
+        <mitre>
+            <id>T1098</id>
+        </mitre>
+        <group>account_manipulation,</group>
+    </rule>
+
+    <rule id="100008" level="10">
+        <if_sid>18107</if_sid>
+        <field name="win.system.eventID">^4781$</field>
+        <description>Account name changed - Possible Account Manipulation</description>
+        <mitre>
+            <id>T1098</id>
+        </mitre>
+        <group>account_manipulation,</group>
+    </rule>
+</group>

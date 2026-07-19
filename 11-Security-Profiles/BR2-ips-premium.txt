@@ -1,0 +1,29 @@
+! ============================================================
+! BR2_IPS_PREMIUM — Premium IPS Profile
+! Applied to: Premium internet access (management)
+! ============================================================
+
+config ips sensor
+    edit "BR2_IPS_PREMIUM"
+        set comment "Premium IPS for BR2 management"
+        config entries
+            edit 1
+                set rule 10000
+                set status enable
+                set action block
+            next
+            edit 2
+                set rule 10001
+                set status enable
+                set action block
+            next
+            edit 3
+                set rule 10002
+                set status enable
+                set action monitor
+            next
+        end
+        set scan-botnet-connections block
+        set block-malicious-url enable
+    next
+end

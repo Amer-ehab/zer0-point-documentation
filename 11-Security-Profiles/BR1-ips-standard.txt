@@ -1,0 +1,29 @@
+! ============================================================
+! BR1_IPS_STANDARD — Standard IPS Profile
+! Applied to: Controlled internet users
+! ============================================================
+
+config ips sensor
+    edit "BR1_IPS_STANDARD"
+        set comment "Standard IPS for BR1 controlled users"
+        config entries
+            edit 1
+                set rule 10000          ! Critical signatures
+                set status enable
+                set action block
+            next
+            edit 2
+                set rule 10001          ! High signatures
+                set status enable
+                set action block
+            next
+            edit 3
+                set rule 10002          ! Medium signatures
+                set status enable
+                set action monitor
+            next
+        end
+        set scan-botnet-connections monitor
+        set block-malicious-url enable
+    next
+end

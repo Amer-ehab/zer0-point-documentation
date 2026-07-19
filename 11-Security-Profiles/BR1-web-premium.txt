@@ -1,0 +1,48 @@
+! ============================================================
+! BR1_WEB_PREMIUM — Premium Web Filtering Profile
+! Applied to: Management internet access
+! ============================================================
+
+config webfilter profile
+    edit "BR1_WEB_PREMIUM"
+        set comment "Premium web filtering for BR1 management"
+        config web
+            set log-search-query enable
+            set url-log enable
+        end
+        config ftgd-wf
+            set options error-allow
+            config filters
+                edit 1
+                    set category 26     ! Proxy Avoidance
+                    set action block
+                next
+                edit 2
+                    set category 61     ! Malicious Websites
+                    set action block
+                next
+                edit 3
+                    set category 62     ! Phishing
+                    set action block
+                next
+            end
+        end
+        config url-filter
+            edit 1
+                set url "*anonymizer*"
+                set type wildcard
+                set action block
+            next
+            edit 2
+                set url "*vpn*"
+                set type wildcard
+                set action block
+            next
+            edit 3
+                set url "*tor*"
+                set type wildcard
+                set action block
+            next
+        end
+    next
+end

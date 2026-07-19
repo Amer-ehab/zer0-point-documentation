@@ -1,0 +1,36 @@
+! ============================================================
+! BR2_DNS_STANDARD — Standard DNS Filtering Profile
+! Applied to: Controlled internet users
+! ============================================================
+
+config dnsfilter profile
+    edit "BR2_DNS_STANDARD"
+        set comment "Standard DNS filtering for BR2 controlled users"
+        config ftgd-dns
+            set options error-allow
+            config filters
+                edit 1
+                    set category 2
+                    set action block
+                next
+                edit 2
+                    set category 7
+                    set action block
+                next
+                edit 3
+                    set category 8
+                    set action block
+                next
+                edit 4
+                    set category 43
+                    set action monitor
+                next
+                edit 5
+                    set category 45
+                    set action monitor
+                next
+            end
+        end
+        set log-all-domain enable
+    next
+end

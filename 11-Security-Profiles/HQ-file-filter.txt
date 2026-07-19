@@ -1,0 +1,48 @@
+! ============================================================
+! HQ_FILE_FILTER_BASELINE_V1 — HQ File Filtering Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config file-filter profile
+    edit "HQ_FILE_FILTER_BASELINE_V1"
+        set comment "Baseline file filter for HQ"
+        config rules
+            edit "BLOCK_TORRENT_FILES"
+                set protocol http https ftp
+                set action block
+                set direction any
+                set file-type "torrent"
+            next
+            edit "MONITOR_EXECUTABLE_AND_SCRIPT"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "executable"
+            next
+            edit "MONITOR_SCRIPT"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "script"
+            next
+            edit "MONITOR_ARCHIVE"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "archive"
+            next
+            edit "MONITOR_DOCUMENT"
+                set protocol http https ftp
+                set action monitor
+                set direction any
+                set file-type "document"
+            next
+            edit "MONITOR_ENCODED_EMAIL"
+                set protocol smtp pop3 imap
+                set action monitor
+                set direction any
+                set file-type "encoded"
+            next
+        end
+    next
+end

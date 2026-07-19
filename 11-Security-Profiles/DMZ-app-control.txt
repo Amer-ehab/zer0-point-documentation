@@ -1,0 +1,36 @@
+! ============================================================
+! DMZ_APP_CONTROL — Application Control for DMZ
+! Applied to: DMZ inbound web publishing policy
+! ============================================================
+
+config application list
+    edit "DMZ_APP_CONTROL"
+        set comment "App control for DMZ web publishing"
+        config entries
+            edit 1
+                set category 5          ! Proxy
+                set action block
+            next
+            edit 2
+                set category 11         ! P2P
+                set action block
+            next
+            edit 3
+                set category 6          ! Remote Access
+                set action block
+            next
+            edit 4
+                set category 12         ! Gaming
+                set action block
+            next
+            edit 5
+                set category 15         ! Unknown
+                set action block
+            next
+            edit 6
+                set category 1          ! Web Access
+                set action allow
+            next
+        end
+    next
+end

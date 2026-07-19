@@ -1,0 +1,60 @@
+! ============================================================
+! DMZ_FILE_FILTER — File Filter for DMZ
+! Applied to: DMZ inbound web publishing policy
+! ============================================================
+
+config file-filter profile
+    edit "DMZ_FILE_FILTER"
+        set comment "File filter for DMZ web publishing"
+        config rules
+            edit "DMZ_BLOCK_EXEC"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "executable"
+            next
+            edit "DMZ_BLOCK_INSTALLER"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "installer"
+            next
+            edit "DMZ_BLOCK_SCRIPT"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "script"
+            next
+            edit "DMZ_BLOCK_BROWSER_EXT"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "browser-extension"
+            next
+            edit "DMZ_BLOCK_OS_IMAGE"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "os-image"
+            next
+            edit "DMZ_BLOCK_TORRENT"
+                set protocol http https
+                set action block
+                set direction any
+                set file-type "torrent"
+            next
+            edit "DMZ_MONITOR_ARCHIVE"
+                set protocol http https
+                set action monitor
+                set direction any
+                set file-type "archive"
+            next
+            edit "DMZ_MONITOR_DOCUMENT"
+                set protocol http https
+                set action monitor
+                set direction any
+                set file-type "document"
+            next
+        end
+    next
+end

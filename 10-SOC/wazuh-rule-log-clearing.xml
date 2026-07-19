@@ -1,0 +1,19 @@
+<!-- ============================================================ -->
+<!-- Wazuh Rule: Security Log Clearing Detection -->
+<!-- File: /var/ossec/etc/rules/local_rules.xml -->
+<!-- Description: Detects attempts to erase security audit logs -->
+<!-- Event ID: 1102 (The audit log was cleared) -->
+<!-- MITRE ATT&CK: T1070 (Indicator Removal on Host) -->
+<!-- ============================================================ -->
+
+<group name="windows,windows_security,log_clearing,defense_evasion,">
+    <rule id="100002" level="12">
+        <if_sid>18107</if_sid>
+        <field name="win.system.eventID">^1102$</field>
+        <description>Security log cleared - Possible Defense Evasion</description>
+        <mitre>
+            <id>T1070</id>
+        </mitre>
+        <group>log_clearing,defense_evasion,</group>
+    </rule>
+</group>

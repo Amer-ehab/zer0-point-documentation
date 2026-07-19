@@ -1,0 +1,29 @@
+! ============================================================
+! DMZ_IPS — IPS Profile for DMZ Web Publishing
+! Applied to: DMZ inbound web publishing policy
+! ============================================================
+
+config ips sensor
+    edit "DMZ_IPS"
+        set comment "IPS for DMZ web publishing"
+        config entries
+            edit 1
+                set rule 10000          ! Critical
+                set status enable
+                set action block
+            next
+            edit 2
+                set rule 10001          ! High
+                set status enable
+                set action block
+            next
+            edit 3
+                set rule 10002          ! Medium
+                set status enable
+                set action monitor
+            next
+        end
+        set scan-botnet-connections block
+        set block-malicious-url enable
+    next
+end

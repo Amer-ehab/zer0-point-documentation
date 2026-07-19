@@ -1,0 +1,52 @@
+! ============================================================
+! HQ_APP_CONTROL_BASELINE_V1 — HQ Application Control Profile
+! Applied to: HQ outbound internet policy
+! ============================================================
+
+config application list
+    edit "HQ_APP_CONTROL_BASELINE_V1"
+        set comment "Baseline application control for HQ"
+        config entries
+            edit 1
+                set category 5          ! Proxy
+                set action block
+            next
+            edit 2
+                set category 11         ! P2P
+                set action block
+            next
+            edit 3
+                set category 6          ! Remote Access
+                set action block
+            next
+            edit 4
+                set category 12         ! Gaming
+                set action block
+            next
+            edit 5
+                set category 15         ! Unknown
+                set action block
+            next
+            edit 6
+                set category 2          ! Collaboration
+                set action monitor
+            next
+            edit 7
+                set category 3          ! Media
+                set action monitor
+            next
+            edit 8
+                set category 4          ! Storage/Backup
+                set action monitor
+            next
+            edit 9
+                set category 14         ! Social Media
+                set action monitor
+            next
+            edit 10
+                set category 17         ! VoIP
+                set action monitor
+            next
+        end
+    next
+end

@@ -1,0 +1,72 @@
+! ============================================================
+! BR2_WEB_STANDARD — Standard Web Filtering Profile
+! Applied to: Controlled internet users
+! ============================================================
+
+config webfilter profile
+    edit "BR2_WEB_STANDARD"
+        set comment "Standard web filtering for BR2 controlled users"
+        config web
+            set log-search-query enable
+            set url-log enable
+        end
+        config ftgd-wf
+            set options error-allow
+            config filters
+                edit 1
+                    set category 26
+                    set action block
+                next
+                edit 2
+                    set category 61
+                    set action block
+                next
+                edit 3
+                    set category 62
+                    set action block
+                next
+                edit 4
+                    set category 86
+                    set action block
+                next
+            end
+        end
+        config url-filter
+            edit 1
+                set url "*anonymizer*"
+                set type wildcard
+                set action block
+            next
+            edit 2
+                set url "*vpn*"
+                set type wildcard
+                set action block
+            next
+            edit 3
+                set url "*tor*"
+                set type wildcard
+                set action block
+            next
+            edit 4
+                set url "*psiphon*"
+                set type wildcard
+                set action block
+            next
+            edit 5
+                set url "*ultrasurf*"
+                set type wildcard
+                set action block
+            next
+            edit 6
+                set url "*p2p*"
+                set type wildcard
+                set action block
+            next
+            edit 7
+                set url "*torrent*"
+                set type wildcard
+                set action block
+            next
+        end
+    next
+end

@@ -1,0 +1,48 @@
+! ============================================================
+! BR2_APP_STRICT — Strict Application Control Profile
+! Applied to: General client and limited internet users
+! ============================================================
+
+config application list
+    edit "BR2_APP_STRICT"
+        set comment "Strict application control for BR2 clients"
+        config entries
+            edit 1
+                set category 5
+                set action block
+            next
+            edit 2
+                set category 6
+                set action block
+            next
+            edit 3
+                set category 11
+                set action block
+            next
+            edit 4
+                set category 12
+                set action block
+            next
+            edit 5
+                set category 15
+                set action block
+            next
+            edit 6
+                set category 2
+                set action monitor
+            next
+            edit 7
+                set category 3
+                set action monitor
+            next
+            edit 8
+                set category 4
+                set action monitor
+            next
+            edit 9
+                set category 14
+                set action monitor
+            next
+        end
+    next
+end
