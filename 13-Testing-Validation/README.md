@@ -2,17 +2,17 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Layer 2 Testing](#layer-2-testing)
-3. [Layer 3 Testing](#layer-3-testing)
-4. [Firewall Testing](#firewall-testing)
-5. [Internet Access Testing](#internet-access-testing)
-6. [HA Failover Testing](#ha-failover-testing)
-7. [VPN Testing](#vpn-testing)
-8. [AD Integration Testing](#ad-integration-testing)
-9. [Security Profile Testing](#security-profile-testing)
-10. [SOC Alert Testing](#soc-alert-testing)
-
+1. [Overview](#1-overview)
+2. [Layer 2 Testing](#2-layer-2-testing)
+3. [Layer 3 Testing](#3-layer-3-testing)
+4. [Firewall Testing](#4-firewall-testing)
+5. [Internet Access Testing](#5-internet-access-testing)
+6. [HA Failover Testing](#6-ha-failover-testing)
+7. [VPN Testing](#7-vpn-testing)
+8. [AD Integration Testing](#8-ad-integration-testing)
+9. [Security Profile Testing](#9-security-profile-testing)
+10. [SOC Alert Testing](#10-soc-alert-testing)
+11. [Test Summary](#11-test-summary)
 ---
 
 ## 1. Overview
