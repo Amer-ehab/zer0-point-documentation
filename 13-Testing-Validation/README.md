@@ -351,5 +351,5 @@ diagnose debug fsso user-list
 | VPN | 16 | 16 | 0 | 100% |
 | AD Integration | 14 | 14 | 0 | 100% |
 | Security Profiles | 20 | 20 | 0 | 100% |
-| SOC Alerts | 6 | 6 | 0 | 100% |
-| **Total** | **121** | **121** | **0** | **100%** |
+| SOC Alerts | 10 | 10 | 0 | 100% |
+| **Total** | **125** | **125** | **0** | **100%** |
