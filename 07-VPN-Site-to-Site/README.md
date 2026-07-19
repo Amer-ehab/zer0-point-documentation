@@ -2,15 +2,15 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [VPN Topology](#vpn-topology)
-3. [HQ Configuration](#hq-configuration)
-4. [BR1 Configuration](#br1-configuration)
-5. [BR2 Configuration](#br2-configuration)
-6. [Redundant Tunnels](#redundant-tunnels)
-7. [SD-WAN VPN Integration](#sd-wan-vpn-integration)
-8. [Firewall Policies](#firewall-policies)
-
+1. [Overview](#1-overview)
+2. [VPN Topology](#2-vpn-topology)
+3. [HQ Configuration](#3-hq-configuration)
+4. [BR1 Configuration](#4-br1-configuration)
+5. [BR2 Configuration](#5-br2-configuration)
+6. [Redundant Tunnels](#6-redundant-tunnels)
+7. [SD-WAN VPN Integration](#7-sd-wan-vpn-integration)
+8. [Firewall Policies](#8-firewall-policies)
+9. [Verification Commands](#9-verification-commands)
 ---
 
 ## 1. Overview
