@@ -237,3 +237,48 @@ curl -X GET "localhost:9200/_cat/indices"           # Index list
 diagnose log device status                           # Log device status
 diagnose test connect 10.1.40.x 514                  # Test connectivity
 ```
+
+---
+
+## Screenshots
+
+Reference screenshots captured during the build, extracted from the original project log.
+
+![Wazuh Dashboard — initial setup / first active agent.](images/Screenshot%202026-04-27%20033324.png)
+*Wazuh Dashboard — initial setup / first active agent.*
+
+![Wazuh Rules editor — custom local_rules.xml with Brute Force detection rule (ID 100001).](images/Screenshot%202026-04-27%20033431.png)
+*Wazuh Rules editor — custom local_rules.xml with Brute Force detection rule (ID 100001).*
+
+![Wazuh Rules editor — Log Clearing detection rule (ID 100002).](images/Screenshot%202026-04-27%20033522.png)
+*Wazuh Rules editor — Log Clearing detection rule (ID 100002).*
+
+![Brute Force alerts triggered and visible in Threat Hunting / Events (rule.id 100001).](images/Screenshot%202026-04-27%20033746.png)
+*Brute Force alerts triggered and visible in Threat Hunting / Events (rule.id 100001).*
+
+![Log Clearing alert triggered and visible in Threat Hunting / Events (rule.id 100002).](images/Screenshot%202026-04-27%20033856.png)
+*Log Clearing alert triggered and visible in Threat Hunting / Events (rule.id 100002).*
+
+![All Wazuh agents active across HQ, BR1, and BR2 domain controllers.](images/Screenshot%202026-04-28%20200752.png)
+*All Wazuh agents active across HQ, BR1, and BR2 domain controllers — HQ-DC1, HQ-DC2, BR1-DC1, BR2-DC1.*
+
+![RDP login detection alerts (rule.id 100040) on BR2-DC1.](images/Screenshot%202026-04-29%20034931.png)
+*RDP login detection alerts (rule.id 100040) on BR2-DC1.*
+
+![RDP login alert detail view.](images/Screenshot%202026-04-29%20034944.png)
+*RDP login alert detail view.*
+
+![Document details for the RDP login event — Logon Type 10, source and target account information.](images/Screenshot%202026-04-29%20035046.png)
+*Document details for the RDP login event — Logon Type 10, source and target account information.*
+
+![Document details continued — process, domain, and target user account (svc.dc1.admin) fields.](images/Screenshot%202026-04-29%20035102.png)
+*Document details continued — process, domain, and target user account (svc.dc1.admin) fields.*
+
+![Privilege escalation alerts (rule.id 100004) — new user created / added to Domain Admins group on BR2-DC1.](images/Screenshot%202026-04-29%20035617.png)
+*Privilege escalation alerts (rule.id 100004) — new user created / added to Domain Admins group on BR2-DC1.*
+
+![Document details for the privilege escalation event — Event ID 4722/4728, subject and target account SIDs.](images/Screenshot%202026-04-29%20035651.png)
+*Document details for the privilege escalation event — Event ID 4722/4728, subject and target account SIDs.*
+
+![Follow-up privilege escalation alerts confirming consistent detection.](images/Screenshot%202026-04-29%20035748.png)
+*Follow-up privilege escalation alerts confirming consistent detection.*
