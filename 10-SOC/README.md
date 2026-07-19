@@ -2,30 +2,31 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [SOC Architecture](#soc-architecture)
-3. [Wazuh SIEM Deployment](#wazuh-siem-deployment)
-4. [Agent Deployment](#agent-deployment)
-5. [Detection Use Cases](#detection-use-cases)
-6. [FortiAnalyzer Integration](#fortianalyzer-integration)
-7. [Log Flow](#log-flow)
-8. [Alert Validation](#alert-validation)
-9. [Future Enhancements](#future-enhancements)
+1. [Overview](#1-overview)
+2. [SOC Architecture](#2-soc-architecture)
+3. [Wazuh SIEM Deployment](#3-wazuh-siem-deployment)
+4. [Agent Deployment](#4-agent-deployment)
+5. [Detection Use Cases](#5-detection-use-cases)
+6. [FortiAnalyzer Integration](#6-fortianalyzer-integration)
+7. [Log Flow](#7-log-flow)
+8. [Alert Validation](#8-alert-validation)
+9. [Future Enhancements](#9-future-enhancements)
+10. [Verification Commands](#10-verification-commands)
 
 ---
 
 ## 1. Overview
 
-The **Security Operations Center (SOC)** at HQ provides **centralized monitoring, detection, and response** for security events across all Zer0-Po!nT sites.
+The **Security Operations Center (SOC)** at HQ provides **centralized monitoring and detection** for security events across all Zer0-Po!nT sites (HQ, BR1, BR2).
 
 ### SOC Components
 
-| Component | Tool | Role |
-|-----------|------|------|
-| SIEM | Wazuh | Endpoint & server log collection, detection rules, alerting |
-| Log Aggregator | FortiAnalyzer | Firewall log collection and analysis |
-| Domain Controller | Windows Server | Identity & authentication logs |
-| VPN | IPSec | Secure log transmission from branches |
+| Component | Tool | Role | Status |
+|-----------|------|------|--------|
+| SIEM | Wazuh | Endpoint log collection, detection rules, alerting | ✅ Deployed |
+| Log Aggregator | FortiAnalyzer | Firewall log collection from all sites | ✅ Deployed |
+| Domain Controller | Windows Server | Identity & authentication logs | ✅ Sending logs |
+| VPN | IPSec | Secure log transmission from branches | ✅ In place |
 
 ---
 
@@ -50,16 +51,16 @@ The **Security Operations Center (SOC)** at HQ provides **centralized monitoring
                              │
         ┌────────────────────┼────────────────────┐
         │                    │                    │
-   ┌────┴────┐         ┌────┴────┐         ┌────┴────┐
-   │ Wazuh   │         │Forti    │         │ SOC     │
-   │ SIEM    │         │Analyzer│         │ Server  │
-   │10.1.40.10│        │10.1.40.x│        │10.1.40.x│
-   └────┬────┘         └─────────┘         └─────────┘
-        │
-        │         VPN Tunnels
-        │    ┌────────┬────────┐
-        └────┤  BR1   │  BR2   ├────┘
-             └────────┴────────┘
+   ┌────┴────┐         ┌────┴────┐
+   │ Wazuh   │         │Forti    │
+   │ SIEM    │         │Analyzer│
+   │10.1.40.10│        │10.1.40.x│
+   └────┬────┘         └────┬────┘
+        │                   │
+        │ VPN Tunnels       │ Log forwarding
+   ┌────┴────┬────────┐     └── HQ / BR1 / BR2 FortiGates
+   │  BR1    │  BR2   │
+   └─────────┴────────┘
 ```
 
 ---
@@ -74,13 +75,7 @@ The **Security Operations Center (SOC)** at HQ provides **centralized monitoring
 | Wazuh Indexer | 4.14.5 | Log storage & search |
 | Wazuh Dashboard | 4.14.5 | Visualization & alerting UI |
 
-### Service Verification
-
-```bash
-systemctl status wazuh-manager wazuh-indexer wazuh-dashboard
-```
-
-### Wazuh Manager IP
+### Wazuh Manager
 
 | Parameter | Value |
 |-----------|-------|
@@ -93,31 +88,15 @@ systemctl status wazuh-manager wazuh-indexer wazuh-dashboard
 
 ## 4. Agent Deployment
 
-### HQ Domain Controller Agent (HQ-DC1)
+Wazuh agents are deployed on **all Windows servers across all three sites** (HQ, BR1, BR2), including domain controllers. All agents are actively forwarding logs to the HQ Wazuh Manager over the site-to-site VPN tunnels.
 
-#### Installation (PowerShell)
+| Site | Coverage | Status |
+|------|----------|--------|
+| HQ | All Windows servers (incl. DC1-HQ, DC2-HQ) | ✅ Deployed |
+| BR1 | All Windows servers (incl. DC1-BR1) | ✅ Deployed |
+| BR2 | All Windows servers (incl. DC1-BR2) | ✅ Deployed |
 
-```powershell
-# Download agent
-Invoke-WebRequest -Uri "https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.5-1.msi" `
-    -OutFile "$env:TEMP\wazuh-agent.msi"
-
-# Install agent
-msiexec.exe /i "$env:TEMP\wazuh-agent.msi" /qn `
-    WAZUH_MANAGER="10.1.40.10" `
-    WAZUH_AGENT_NAME="HQ-DC1"
-```
-
-#### Agent Registration
-
-```powershell
-& "C:\Program Files (x86)\ossec-agent\agent-auth.exe" `
-    -m 10.1.40.10 `
-    -p 1515 `
-    -A HQ-DC1
-```
-
-#### Agent Verification
+### Agent Verification
 
 ```bash
 # On Wazuh Manager
@@ -127,92 +106,60 @@ msiexec.exe /i "$env:TEMP\wazuh-agent.msi" /qn `
 /var/ossec/bin/agent_control -i <agent_id>
 ```
 
-### Future Agent Deployments
-
-| Target | Agent Name | Priority |
-|--------|-----------|----------|
-| DC2-HQ | HQ-DC2 | High |
-| DC1-BR1 | BR1-DC1 | High |
-| DC1-BR2 | BR2-DC1 | High |
-| HQ Servers | HQ-SRV-01... | Medium |
-| BR1 Servers | BR1-SRV-01... | Medium |
-| BR2 Servers | BR2-SRV-01... | Medium |
-
 ---
 
 ## 5. Detection Use Cases
 
-### Detection Rule Files
+Three detection rules have been written, deployed, and validated.
 
-| File | Rule ID | Description | MITRE ID |
-|------|---------|-------------|----------|
-| [wazuh-rule-brute-force.xml](wazuh-rule-brute-force.xml) | 100001 | Brute force detection (5 failed logins / 60s) | T1110 |
-| [wazuh-rule-log-clearing.xml](wazuh-rule-log-clearing.xml) | 100002 | Security log clearing detection | T1070 |
-| [wazuh-rule-privilege-escalation.xml](wazuh-rule-privilege-escalation.xml) | 100003-100004 | Privilege escalation detection | T1078 |
-| [wazuh-rule-lateral-movement.xml](wazuh-rule-lateral-movement.xml) | 100005-100006 | Lateral movement detection | T1021 |
-| [wazuh-rule-suspicious-admin.xml](wazuh-rule-suspicious-admin.xml) | 100007-100008 | Suspicious admin activity | T1098 |
+| File | Rule ID | Description | Event ID(s) | MITRE ID | Status |
+|------|---------|-------------|-------------|----------|--------|
+| [wazuh-rule-brute-force.xml](wazuh-rule-brute-force.xml) | 100001 | Repeated failed logins | 4625 | T1110 | ✅ Deployed & Validated |
+| [wazuh-rule-log-clearing.xml](wazuh-rule-log-clearing.xml) | 100002 | Security log cleared | 1102 | T1070 | ✅ Deployed & Validated |
+| [wazuh-rule-privilege-escalation.xml](wazuh-rule-privilege-escalation.xml) | 100003-100004 | User added to Domain Admins group / RDP login | 4728, 4624 (Logon Type 10) | T1078 | ✅ Deployed & Validated |
 
 ### Use Case 01 — Brute Force Detection
 
-#### Objective
-Detect repeated failed login attempts on the Domain Controller.
-
-#### Data Source
-- Windows Security Logs
-- Event ID: **4625**
-
-#### Detection Logic
-- **5 failed logins** within **60 seconds** → Brute Force Alert (Level 10)
-- Maps to MITRE ATT&CK technique **T1110** (Brute Force)
-
----
+**Objective:** Detect repeated failed login attempts.
+**Data Source:** Windows Security Logs, Event ID **4625**.
+**Detection Logic:** 5 failed logins within 60 seconds → Alert (Level 10). Maps to MITRE **T1110**.
 
 ### Use Case 02 — Security Log Clearing Detection
 
-#### Objective
-Detect attempts to erase security audit logs.
+**Objective:** Detect attempts to erase security audit logs.
+**Data Source:** Windows Security Logs, Event ID **1102**.
+**Detection Logic:** Any occurrence of Event ID 1102 → Critical Alert (Level 12). Maps to MITRE **T1070**.
 
-#### Data Source
-- Windows Security Logs
-- Event ID: **1102**
+### Use Case 03 — Privilege Escalation Detection
 
-#### Detection Logic
-- Any **Event ID 1102** → Critical Alert (Level 12)
-- Maps to MITRE ATT&CK technique **T1070** (Indicator Removal)
+**Objective:** Detect unauthorized escalation to administrative privileges.
+**Data Source:** Windows Security Logs.
+**Detection Logic:**
+- **Event ID 4728** — a user is added to the Domain Admins security group → Alert.
+- **Event ID 4624 (Logon Type 10)** — a Remote Desktop (RDP) logon occurs → Alert.
 
----
-
-### Future Use Cases
-
-| Use Case | MITRE ID | Event IDs | Status |
-|----------|----------|-----------|--------|
-| Privilege Escalation | T1078 | 4672, 4728 | Configured |
-| Lateral Movement | T1021 | 4624, 4648 | Configured |
-| Suspicious Admin Activity | T1098 | 4738, 4781 | Configured |
-| Malware Detection | T1204 | Various | Planned |
-| Data Exfiltration | T1041 | Network logs | Planned |
+Maps to MITRE ATT&CK technique **T1078** (Valid Accounts).
 
 ---
 
 ## 6. FortiAnalyzer Integration
 
-### Purpose
-FortiAnalyzer collects and analyzes **FortiGate firewall logs** from all sites, providing:
+FortiAnalyzer is deployed at HQ and is receiving logs from **every FortiGate in the infrastructure** (HQ, BR1, BR2).
 
-- Centralized log storage
-- Advanced reporting
-- Threat intelligence correlation
-- Compliance reporting
+### Purpose
+
+- Centralized firewall log storage
+- Traffic and UTM log visibility across all sites
 
 ### Log Sources
 
-| Source | IP | Log Type |
-|--------|-----|----------|
-| HQ FortiGate | 10.1.99.1 | Traffic, Event, UTM |
-| BR1 FortiGate | 10.2.x.x | Traffic, Event, UTM |
-| BR2 FortiGate | 10.3.x.x | Traffic, Event, UTM |
+| Source | Log Type | Status |
+|--------|----------|--------|
+| HQ FortiGate | Traffic, Event, UTM | ✅ Forwarding |
+| BR1 FortiGate | Traffic, Event, UTM | ✅ Forwarding |
+| BR2 FortiGate | Traffic, Event, UTM | ✅ Forwarding |
 
-### FortiGate Log Forwarding
+### FortiGate Log Forwarding Config
 
 ```fortios
 config log fortianalyzer setting
@@ -222,81 +169,56 @@ config log fortianalyzer setting
 end
 ```
 
+> **Note:** FortiAnalyzer and Wazuh currently operate as two separate log destinations (FortiGate logs → FortiAnalyzer, endpoint/server logs → Wazuh). They are not yet integrated with each other — see [Future Enhancements](#9-future-enhancements).
+
 ---
 
 ## 7. Log Flow
 
-### Branch-to-HQ Log Transmission
+### Endpoint/Server Log Flow
 
 ```
-Branch Device → Wazuh Agent → VPN Tunnel → HQ Wazuh Manager
-                                    ↓
-                              Wazuh Indexer
-                                    ↓
-                              Wazuh Dashboard
-                                    ↓
-                              SOC Analyst
+Windows Server (any site) → Wazuh Agent → VPN Tunnel (branches only) → HQ Wazuh Manager
+                                                    ↓
+                                              Wazuh Indexer
+                                                    ↓
+                                              Wazuh Dashboard
 ```
 
 ### FortiGate Log Flow
 
 ```
-FortiGate → FortiAnalyzer (HQ)
-    ↓
-Wazuh (via syslog forwarding if needed)
+FortiGate (HQ / BR1 / BR2) → FortiAnalyzer (HQ)
 ```
 
 ---
 
 ## 8. Alert Validation
 
-### Brute Force Test
-
-1. Generate multiple failed login attempts on DC1-HQ
-2. Verify alert appears in Wazuh Dashboard
-3. Confirm alert details (source IP, username, timestamp)
-
-### Log Clearing Test
-
-1. Manually clear the Security log on DC1-HQ
-2. Verify critical alert triggers immediately
-3. Confirm alert severity (Level 12)
-
-### Alert Screenshots
-
 | Test | Result | Alert Level |
 |------|--------|-------------|
-| Brute Force | ✅ Triggered | 10 |
-| Log Clearing | ✅ Triggered | 12 |
+| Brute Force (5 failed logins / 60s) | ✅ Triggered | 10 |
+| Security Log Clearing | ✅ Triggered | 12 |
+| Added to Domain Admins Group | ✅ Triggered | — |
+| RDP Logon | ✅ Triggered | — |
 
 ---
 
-## 9. SOC Operational Model
-
-```
-Log Collection → Detection Rules → Alerts → Investigation → Response
-      ↑                                                    ↓
-   Wazuh Agents                                      Incident Report
-   FortiAnalyzer                                    Remediation Actions
-   Windows Events                                   Policy Updates
-```
-
----
-
-## 10. Future Enhancements
+## 9. Future Enhancements
 
 | Enhancement | Description | Priority |
 |-------------|-------------|----------|
-| Branch Agent Deployment | Install Wazuh agents on BR1/BR2 DCs | High |
-| FortiAnalyzer Dashboards | Build custom SOC dashboards | High |
-| Advanced Use Cases | Privilege escalation, lateral movement | Medium |
-| Incident Response Playbooks | Document response procedures | Medium |
+| Integrate FortiAnalyzer with Wazuh | Unified visibility between FortiAnalyzer and Wazuh | High |
+| Lateral Movement Detection | Detect lateral movement between hosts (T1021) | Medium |
+| Suspicious Admin Activity Detection | Detect anomalous admin behavior (T1098) | Medium |
+| FortiAnalyzer Dashboards | Build custom SOC dashboards | Medium |
+| Incident Response Playbooks | Document response procedures | Low |
 | Threat Intelligence Feeds | Integrate MISP/TAXII | Low |
 | SOAR Integration | Automate response actions | Low |
 
 ---
 
-## 11. Verification Commands
+## 10. Verification Commands
 
 ```bash
 # Wazuh Manager
