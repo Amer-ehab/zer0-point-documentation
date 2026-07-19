@@ -222,6 +222,7 @@ Same methodology as BR1, with adjusted IPs:
 | HQ Tunnel 1 IP | 172.16.3.1 |
 | HQ Tunnel 2 IP | 172.16.4.1 |
 
+> BR2 was configured using the exact same GUI steps as BR1 (see screenshots above); separate screenshots were not captured since the process is identical.
 ---
 
 ## 6. Redundant Tunnels
